@@ -14,3 +14,24 @@ def has_common_two_pointers(a: list[int], b: list[int]):
 
 # Time O(M + N)
 # Memory O(1)
+
+def binary_search(a: list[int], target: int):
+    left = 0
+    right = len(a) - 1
+
+    while left <= right:
+        m = (left + right) // 2
+
+        if a[m] == target:
+            return True
+        if a[m] < target:
+            left = m + 1
+        else:
+            right = m - 1
+    return False
+
+def has_common_binary_search(a: list[int], b: list[int]):
+    for i in a:
+        if binary_search(b, i):
+            return True
+    return False

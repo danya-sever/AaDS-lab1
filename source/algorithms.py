@@ -90,16 +90,35 @@ def has_common_exponential_search(a: list[int], b: list[int]):
     if len(a) > len(b):
         a, b = b, a
 
-    for i in a:
-        if b[0] == i:
-            return True
+    j = 0
 
-        border = exponential_search(b, i)
-        left = border // 2
-        right = min(border, len(b) - 1)
-        if binary_search_range(b, i, left, right):
+    for i in a:
+        if j >= len(b):
+            return False
+        if b[j] == i:
             return True
+        if b[j] > i:
+            continue
+
+        border = 1
+
+        while j + border < len(b) and b[j + border] < i:
+            border *= 2
+
+        left = j + border // 2 - 1
+        right = min(j + border, len(b) - 1) + 1
+
+        while right - left > 1:
+            m = (left + right) // 2
+            if b[m] == i:
+                return True
+            elif b[m] > i:
+                right = m
+            else:
+                left = m
+        j = right
     return False
+
 
 # Time O(M * log(2N/M))
 # Memory O(1)

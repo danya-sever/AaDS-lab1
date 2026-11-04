@@ -48,8 +48,9 @@ TEST_SIZES = [
 ]
 
 def generate_arrays(m, n):
-    a = [2 * i for i in range(m)]
-    b = [2 * i + 1 for i in range(n)]
+    a = [2 * int(i * n / m) + 1 for i in range(m)]
+    b = [2 * i for i in range(n)]
+
     return a, b
 
 def measure_time(algorithm, a, b, repeats=100, batches=5):

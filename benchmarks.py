@@ -52,17 +52,20 @@ def generate_arrays(m, n):
     b = [2 * i + 1 for i in range(n)]
     return a, b
 
-def measure_time(algorithm, a, b, repeats=50):
-    total_time = 0
+def measure_time(algorithm, a, b, repeats=100, batches=5):
+    results = []
 
-    for _ in range(repeats):
+    for _ in range(batches):
         start = time.perf_counter()
-        algorithm(a, b)
+        for _ in range(repeats):
+            algorithm(a, b)
+
         elapsed = time.perf_counter() - start
+        results.append(elapsed / repeats)
 
-        total_time += elapsed
+    results.sort()
 
-    return total_time / repeats
+    return results[len(results) // 2]
 
 
 def run_benchmark():

@@ -14,32 +14,6 @@ def binary_search(a: list[int], target: int):
     return False
 
 
-def binary_search_range(a: list[int], target: int, left: int, right: int):
-
-    while left <= right:
-        m = (left + right) // 2
-
-        if a[m] == target:
-            return True
-        if a[m] < target:
-            left = m + 1
-        else:
-            right = m - 1
-    return False
-
-
-def exponential_search(a: list[int], target: int):
-    if not a or a[0] >= target:
-        return 0
-
-    border = 1
-
-    while border < len(a) and a[border] < target:
-        border *= 2
-
-    return border
-
-
 def insert_position(a: list[int], target: int, left: int = 0, right: int = None):
     if right is None:
         right = len(a)
@@ -136,7 +110,8 @@ def has_common_double_binary(a: list[int], b: list[int]):
         pos = insert_position(b, val, lb, rb)
         if pos < rb and b[pos] == val:
             return True
-        return (search(la, m, lb, pos) or search(m + 1, ra, pos, rb))
+        return (search(la, m, lb, pos) or
+                search(m + 1, ra, pos, rb))
 
     return search(0, len(a), 0, len(b))
 
